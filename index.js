@@ -1,8 +1,8 @@
 //Prcess of Redux
 //-----------------------------
 
-//1. State
-//2. dispatch action
+//1. State- for this project count:0 
+//2. dispatch action -increment,decrement, reser
 //3. reducer-->based on action type
 //4. store -->hold state-->getState(),dispatch(), subscribe()
 
@@ -12,27 +12,31 @@ const {createStore} = require("redux");
 //defining constant its a good practice and will help to avoide typos
 const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
+const RESET = 'RESET';
 // const ADD_USER = 'ADD_USER';
 
 //state
-const initialCounterState={
+const initialState={
     count:0
 }
-const initialUsersState={
-    users: [{name:"anisul islam"}],
-}
+
 
 //action-object-(type,playload)
 
-const incrementCounter=()=>{
+const incrementCounterAction=()=>{
     return {
         type: INCREMENT,
     }
 };
 
-const deccrementCounter=()=>{
+const decrementCounterAction=()=>{
     return {
         type: DECREMENT,
+    }
+};
+const resetCounterAction=()=>{
+    return {
+        type: RESET,
     }
 };
 
@@ -40,7 +44,7 @@ const deccrementCounter=()=>{
 // reducer is a pure function because it will definitely take input and return output
 //reducer will handle the logic and update state based on action's type
 
-const counterReducer=(state=initialCounterState, action)=>{
+const counterReducer=(state=initialState, action)=>{
     switch (action.type) {
         case INCREMENT:
             return {
@@ -52,6 +56,11 @@ const counterReducer=(state=initialCounterState, action)=>{
                 ...state,//means rest of the property will be here if it has and only change the count
                 count: state.count -1,
             }
+            case RESET:
+            return {
+                ...state,//means rest of the property will be here if it has and only change the count
+                count: 0,
+                }
         default:
             state;
     }
@@ -65,22 +74,16 @@ store.subscribe(()=>{
 })
 
 //dispatch action
-store.dispatch(incrementCounter());
-store.dispatch(incrementCounter());
-store.dispatch(incrementCounter());
-store.dispatch(deccrementCounter());
+store.dispatch(incrementCounterAction());
+store.dispatch(incrementCounterAction());
+store.dispatch(incrementCounterAction());
+store.dispatch(decrementCounterAction());
+store.dispatch(resetCounterAction());
 
 
 
 
 
-
-// const addUser=()=>{
-//     return {
-//         type: ADD_USER,
-//         payload:{name: 'towsif'},
-//     }
-// };
 
 
 
