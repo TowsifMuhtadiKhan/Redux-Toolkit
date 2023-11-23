@@ -22,16 +22,15 @@ const initalCartState={
     numberofProducts: 1,
 };
 
-
 //Product Action
 const getProducts = () =>{
     return{
-        type :GET_CART_ITEMS,
+        type :GET_PRODUCTS,
     };
 };
 const addProducts = (product) =>{
     return{
-        type :ADD_CART_ITEM,
+        type :ADD_PRODUCT,
         payload: product,
     };
 };
@@ -48,8 +47,8 @@ const addCart = (product) =>{
         payload: product,
     };
 };
-//product reducer
 
+//product reducer
 const productReducer = (state=initalProductState, action) => {
     switch (action.type) {
         case GET_PRODUCTS:
