@@ -11,24 +11,24 @@ const {createStore} = require("redux");
 
 //defining constant its a good practice and will help to avoide typos
 const INCREMENT = 'INCREMENT';
+const INCREMENT_BY_VALUE = 'INCREMENT_BY_VALUE';
 const DECREMENT = 'DECREMENT';
 const RESET = 'RESET';
-// const ADD_USER = 'ADD_USER';
+
 
 //state
 const initialState={
-    count:0
-}
-
+    count:1,
+};
 
 //action-object-(type,playload)
+
 
 const incrementCounterAction=()=>{
     return {
         type: INCREMENT,
     }
 };
-
 const decrementCounterAction=()=>{
     return {
         type: DECREMENT,
@@ -37,6 +37,13 @@ const decrementCounterAction=()=>{
 const resetCounterAction=()=>{
     return {
         type: RESET,
+    }
+};
+const incrementCounterByValue=(value)=>{
+    return {
+        type: INCREMENT_BY_VALUE,
+        payload: value //playeload to receive the data
+
     }
 };
 
@@ -56,16 +63,20 @@ const counterReducer=(state=initialState, action)=>{
                 ...state,//means rest of the property will be here if it has and only change the count
                 count: state.count -1,
             }
-            case RESET:
+        case RESET:
             return {
                 ...state,//means rest of the property will be here if it has and only change the count
                 count: 0,
+                }
+        case INCREMENT_BY_VALUE:
+            return {
+                ...state,//means rest of the property will be here if it has and only change the count
+                count: state.count + action.payload,
                 }
         default:
             state;
     }
 }
-
 //create store
 const store=createStore(counterReducer);
 
@@ -79,6 +90,8 @@ store.dispatch(incrementCounterAction());
 store.dispatch(incrementCounterAction());
 store.dispatch(decrementCounterAction());
 store.dispatch(resetCounterAction());
+store.dispatch(decrementCounterAction());
+store.dispatch(incrementCounterByValue(5));
 
 
 
