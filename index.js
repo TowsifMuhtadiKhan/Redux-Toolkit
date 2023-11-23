@@ -4,10 +4,10 @@
 //1. State
 //2. dispatch action
 //3. reducer-->based on action type
-//4.update
+//4. store -->hold state-->getState(),dispatch(), subscribe()
 
 //-----------------------------
-
+const {createStore} = require("redux");
 
 //defining constant its a good practice and will help to avoide typos
 const INCREMENT = 'INCREMENT';
@@ -47,7 +47,6 @@ const counterReducer=(state=initialCounterState, action)=>{
                 ...state,//means rest of the property will be here if it has and only change the count
                 count: state.count +1,
             }
-
         case DECREMENT:
             return {
                 ...state,//means rest of the property will be here if it has and only change the count
@@ -58,7 +57,18 @@ const counterReducer=(state=initialCounterState, action)=>{
     }
 }
 
+//create store
+const store=createStore(counterReducer);
 
+store.subscribe(()=>{
+    console.log(store.getState());
+})
+
+//dispatch action
+store.dispatch(incrementCounter());
+store.dispatch(incrementCounter());
+store.dispatch(incrementCounter());
+store.dispatch(deccrementCounter());
 
 
 
